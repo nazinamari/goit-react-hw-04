@@ -1,12 +1,14 @@
-import { ImageCard } from "../ImageCard/ImageCard"
+import  ImageCard  from '../ImageCard/ImageCard';
 
-export default function ImageGallery ({items}) {
+export default function ImageGallery ({ images }) {
     return (
         <ul>
-	{items.map}
-	<li>
-		<ImageCard  />
-	</li>
-</ul>
+            {images.map(({id, urls}) => (
+                    <li key={id}>
+                        <ImageCard urls={urls} />
+                    </li>
+                )
+            )}
+        </ul>
     )
 }
