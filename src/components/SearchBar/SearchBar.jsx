@@ -13,9 +13,7 @@ export default function SearchBar ({ onSearch }) {
             alert("Please enter search term!")
             return;
         }
-
         onSearch(inputValue);
-
         setInputValue('')
     }
 
@@ -28,8 +26,8 @@ export default function SearchBar ({ onSearch }) {
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    // autocomplete="off"
-                    // autofocus
+                    autoComplete="off"
+                    autoFocus
                     onChange={handleChange}
                     value={inputValue}
                     placeholder="Search images and photos"
