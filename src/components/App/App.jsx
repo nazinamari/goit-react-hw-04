@@ -14,17 +14,16 @@ export default function App () {
   const [ page, setPage ] = useState(1);
 
   useEffect(() => {
-    
+    if(!searchQuery) {
+      return;
+    }
     const getImages = async() =>{
-      if(searchQuery === ""){
-        return;
-      }
       try {
             setLoading(true);
             setError(false);
             const data = await fetchData(searchQuery, page);
             setImages((prevImages) => {
-              return page === 1 ? data : [...prevImages, ...data.result] 
+              return page === 1 ? data.results  : [...prevImages, ...data.results] 
             });
       } catch (error) {
         setError(true);
