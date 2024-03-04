@@ -1,22 +1,27 @@
+import { useState } from "react";
+
 export default function SearchBar ({ onSearch }) {
+
+    const [inputValue, setInputValue] = useState("");
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        const form = evt.target;
-        const query = form.elements.query.value;
+        // const form = evt.target;
+        // const query = form.elements.query.value;
 
-        if(form.elements.query.value.trim() === '') {
+        if(inputValue.trim() === '') {
             alert("Please enter search term!")
             return;
         }
 
-        onSearch(query);
-        form.reset();
+        onSearch(inputValue);
+
+        setInputValue('')
     }
 
-    // const handleInputChange = event => {
-    //     setQuery(event.target.value.toLowerCase());
-    // };
+    const handleChange = (evt) => {
+        setInputValue(evt.target.value.toLowerCase());
+      };
 
     return (
         <header>
@@ -25,8 +30,8 @@ export default function SearchBar ({ onSearch }) {
                     type="text"
                     // autocomplete="off"
                     // autofocus
-                    // onChange={handleInputChange}
-                    name="query" 
+                    onChange={handleChange}
+                    value={inputValue}
                     placeholder="Search images and photos"
                 />
                 <button type="submit">Search</button>

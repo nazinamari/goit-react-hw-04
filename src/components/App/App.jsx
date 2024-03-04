@@ -8,7 +8,7 @@ import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn.jsx';
 export default function App () {
 
   const [ images, setImages ] = useState([]);
-  const [ query, setQuery ] = useState('');
+  const [ searchQuery, setSearchQuery ] = useState('');
   const [ loading, setLoading ] = useState(false);
   const [ error, setError ] = useState(false);
   const [ page, setPage ] = useState(1);
@@ -16,12 +16,15 @@ export default function App () {
   useEffect(() => {
     
     const getImages = async() =>{
+      if(searchQuery === ""){
+        return;
+      }
       try {
             setLoading(true);
             setError(false);
-            const data = await fetchData(page, query);
-            setImages((prewImages) => {
-              return page === 1 ? data : [...prewImages, ...data] 
+            const data = await fetchData(searchQuery, page);
+            setImages((prevImages) => {
+              return page === 1 ? data : [...prevImages, ...data.result] 
             });
       } catch (error) {
         setError(true);
@@ -30,12 +33,12 @@ export default function App () {
       }
     }
   getImages()
-  }, [ page, query ]);
+  }, [ searchQuery, page ]);
   
   const handleSearch = (newQuery) => {
-    setQuery(newQuery);
+    setSearchQuery(newQuery);
     setPage(1);
-    // setImages([]);
+    setImages([]);
   };
 
   const handleLoadMore = () => {
