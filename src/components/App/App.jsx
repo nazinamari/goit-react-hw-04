@@ -1,9 +1,9 @@
 import ImageGallery from "../ImageGallery/ImageGallery";
-// import { ImageModal } from "../ImageModal/ImageModal";
 import SearchBar  from "../SearchBar/SearchBar";
 import { useState, useEffect } from "react";
 import { fetchData }  from '../services/api.js';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn.jsx';
+import ImageModal  from "../ImageModal/ImageModal.jsx";
 
 export default function App () {
 
@@ -12,6 +12,11 @@ export default function App () {
   const [ loading, setLoading ] = useState(false);
   const [ error, setError ] = useState(false);
   const [ page, setPage ] = useState(1);
+  const [ isModalOpen, setIsModalOpen] = useState(false);
+  const [ selectedImages, setSelectedImages ] = useState({
+     src: '',
+     description: '',
+  });
 
   useEffect(() => {
     if(!searchQuery) {
@@ -44,15 +49,22 @@ export default function App () {
     setPage(page + 1);
   };
 
+  function handleModal(state, photo = {}) {
+    setIsModalOpen(state);
+    if (state) setSelectedImages(photo);
+    console.log(selectedImages);
+  }
+
+
   return (
     <>
       <SearchBar onSearch={handleSearch}/>
       {loading && <p>Loading data, please wait...</p> }
       {error && (<p>Whoops, something went wrong! Please try reloading this page!</p>
       )}
-      {images.length > 0 && <ImageGallery images={images}/>}
+      {images.length > 0 && <ImageGallery images={images} onSelect={setSelectedImages}/>}
       <LoadMoreBtn onClick={handleLoadMore}/>
-      {/* <ImageModal/> */}
+      {selectedImages && <ImageModal isOpen={isModalOpen} image={selectedImages} onChange={handleModal}/>}
     </>
   )
 }
