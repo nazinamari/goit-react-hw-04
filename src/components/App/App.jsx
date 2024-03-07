@@ -23,12 +23,12 @@ export default function App () {
       return;
     }
     const getImages = async() =>{
+      setLoading(true);
+
       try {
-            setLoading(true);
-            setError(false);
             const data = await fetchData(searchQuery, page);
             setImages((prevImages) => {
-              return page === 1 ? data.results  : [...prevImages, ...data.results] 
+              return page === 1 ? data.results : [...prevImages, ...data.results] 
             });
       } catch (error) {
         setError(true);
@@ -43,16 +43,20 @@ export default function App () {
     setSearchQuery(newQuery);
     setPage(1);
     setImages([]);
+    setError(false);
   };
 
   const handleLoadMore = () => {
     setPage(page + 1);
   };
 
-  function handleModal(state, photo = {}) {
-    setIsModalOpen(state);
-    if (state) setSelectedImages(photo);
-    console.log(selectedImages);
+  const handleClose = () => {
+    setIsModalOpen(false);
+  }
+
+  const handleModalOpen = ( data ) => {
+    setIsModalOpen(true);
+    setSelectedImages(data);
   }
 
 
@@ -62,9 +66,9 @@ export default function App () {
       {loading && <p>Loading data, please wait...</p> }
       {error && (<p>Whoops, something went wrong! Please try reloading this page!</p>
       )}
-      {images.length > 0 && <ImageGallery images={images} onSelect={setSelectedImages}/>}
+      {images.length > 0 && <ImageGallery images={images} onSelect={handleModalOpen}/>}
       <LoadMoreBtn onClick={handleLoadMore}/>
-      {selectedImages && <ImageModal isOpen={isModalOpen} image={selectedImages} onChange={handleModal}/>}
+      {selectedImages && <ImageModal isOpen={isModalOpen} image={selectedImages} onClose={handleClose}/>}
     </>
   )
 }

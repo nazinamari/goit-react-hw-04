@@ -1,14 +1,13 @@
 import ReactModal from 'react-modal';
 import css from './ImageModal.module.css';
-// import { useToggle } from "../../hooks/useToggle";
 
 ReactModal.setAppElement(document.getElementById('root'));
 
-export default function ImageModal ({isOpen, image, onChange}) {
+export default function ImageModal ({isOpen, image, onClose}) {
     return (
         <ReactModal
             isOpen={isOpen}
-            onRequestClose={() => onChange(false)}
+            onRequestClose={onClose}
             shouldCloseOnOverlayClick={true}
             shouldCloseOnEsc={true}
             preventScroll={true}
@@ -17,6 +16,7 @@ export default function ImageModal ({isOpen, image, onChange}) {
             >
             <img src={image.src} className={css.img} />
             <p className={css.text}>{image.description}</p>
+            <button onClick={onClose}>close</button>
         </ReactModal>
     )
 }
