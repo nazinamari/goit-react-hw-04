@@ -14,8 +14,8 @@ export default function App () {
   const [ page, setPage ] = useState(1);
   const [ isModalOpen, setIsModalOpen] = useState(false);
   const [ selectedImages, setSelectedImages ] = useState({
-     src: '',
-     description: '',
+    src: '',
+    description: '',
   });
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function App () {
       try {
             const data = await fetchData(searchQuery, page);
             setImages((prevImages) => {
-              return page === 1 ? data.results : [...prevImages, ...data.results] 
+              return [...prevImages, ...data.results] 
             });
       } catch (error) {
         setError(true);
@@ -67,7 +67,7 @@ export default function App () {
       {error && (<p>Whoops, something went wrong! Please try reloading this page!</p>
       )}
       {images.length > 0 && <ImageGallery images={images} onSelect={handleModalOpen}/>}
-      <LoadMoreBtn onClick={handleLoadMore}/>
+      {images.length > 0 && !loading && <LoadMoreBtn onClick={handleLoadMore}/>}
       {selectedImages && <ImageModal isOpen={isModalOpen} image={selectedImages} onClose={handleClose}/>}
     </>
   )

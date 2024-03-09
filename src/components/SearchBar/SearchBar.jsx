@@ -1,4 +1,5 @@
 import { useState } from "react";
+import css from "./SearchBar.module.css";
 
 export default function SearchBar ({ onSearch }) {
 
@@ -22,9 +23,11 @@ export default function SearchBar ({ onSearch }) {
       };
 
     return (
-        <header>
-            <form onSubmit={handleSubmit}>
+        <header className={css.header}>
+            <form className={css.form} onSubmit={handleSubmit}>
+                <label htmlFor="searchQuery" className={css.label}/>
                 <input
+                    className={css.input}
                     type="text"
                     autoComplete="off"
                     autoFocus
@@ -32,7 +35,7 @@ export default function SearchBar ({ onSearch }) {
                     value={inputValue}
                     placeholder="Search images and photos"
                 />
-                <button type="submit">Search</button>
+                <button className={css.searchBtn} type="submit">Search</button>
             </form>
         </header>
     )
