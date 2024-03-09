@@ -15,7 +15,7 @@ export default function ImageModal ({isOpen, image, onClose}) {
             overlayClassName={`${css.overlay} ${isOpen ? css.overlayIsOpen : '' }`}
             >
             <img src={image.src} className={css.img} />
-            <p className={css.text}>{image.description}</p>
+            {/* <p className={css.text}>{image.description}</p> */}
             <button onClick={onClose}>close</button>
         </ReactModal>
     )

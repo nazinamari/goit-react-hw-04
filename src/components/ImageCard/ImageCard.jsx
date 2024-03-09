@@ -1,14 +1,14 @@
-// import css from './ImageCard.module.css'
+import css from './ImageCard.module.css'
 
 export default function ImageCard ({ image: {urls, description }, onSelect }) {
     return (
-        <div onClick={() => onSelect(
+        <div className={css.wrapper} onClick={() => onSelect(
             {
                 src: urls.regular,
                 description: description,
             })
         }>
-            <img src={urls.small} alt={description} />
+            <img className={css.img} src={urls.small} alt={description} />
         </div>
     )
 }
