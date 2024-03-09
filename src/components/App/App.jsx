@@ -40,6 +40,9 @@ export default function App () {
   }, [ searchQuery, page ]);
   
   const handleSearch = (newQuery) => {
+    if(searchQuery === newQuery) {
+      return;
+    }
     setSearchQuery(newQuery);
     setPage(1);
     setImages([]);
