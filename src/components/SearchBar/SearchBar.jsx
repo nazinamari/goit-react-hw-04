@@ -1,7 +1,11 @@
 import { useState } from "react";
 import css from "./SearchBar.module.css";
+import toast, { Toaster } from 'react-hot-toast';
+import { AiOutlineSearch } from "react-icons/ai";
 
 export default function SearchBar ({ onSearch }) {
+
+    const notify = () => toast('Please enter search term!');
 
     const [inputValue, setInputValue] = useState("");
 
@@ -9,7 +13,7 @@ export default function SearchBar ({ onSearch }) {
         evt.preventDefault();
 
         if(inputValue.trim() === '') {
-            alert("Please enter search term!")
+            notify()
             return;
         }
         onSearch(inputValue);
@@ -33,7 +37,11 @@ export default function SearchBar ({ onSearch }) {
                     value={inputValue}
                     placeholder="Search images and photos"
                 />
-                <button className={css.searchBtn} type="submit">Search</button>
+                <button className={css.searchBtn} type="submit">
+                    <AiOutlineSearch size="24px" />
+                    Search
+                </button>
+                <Toaster position="top-right" containerStyle={{margin:"12px"}}/>
             </form>
         </header>
     )

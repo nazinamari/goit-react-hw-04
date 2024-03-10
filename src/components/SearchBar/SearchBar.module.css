@@ -56,17 +56,21 @@
 }
 
 .searchBtn {
-    display: inline-block;
-    height: 100%; 
-    font-size: 20px;
-    padding: 8px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    width: 100px;
+    height: 48px;
     border: 0;
     background-size: 40%;
     opacity: 0.6;
     transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     outline: none;
-    /* margin-right: 10px; */
     &:hover {
-    opacity: 1;}
+        opacity: 1;
+    }
 }
+

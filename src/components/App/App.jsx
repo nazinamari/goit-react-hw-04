@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { fetchData }  from '../services/api.js';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn.jsx';
 import ImageModal  from "../ImageModal/ImageModal.jsx";
+import { Loader } from "../Loader/Loader.jsx";
+import ErrorMessage from "../ErrorMessage/ErrorMessage.jsx";
 
 export default function App () {
 
@@ -66,9 +68,8 @@ export default function App () {
   return (
     <>
       <SearchBar onSearch={handleSearch}/>
-      {loading && <p>Loading data, please wait...</p> }
-      {error && (<p>Whoops, something went wrong! Please try reloading this page!</p>
-      )}
+      {loading && <Loader/> }
+      {error && <ErrorMessage/>}
       {images.length > 0 && <ImageGallery images={images} onSelect={handleModalOpen}/>}
       {images.length > 0 && !loading && <LoadMoreBtn onClick={handleLoadMore}/>}
       {selectedImages && <ImageModal isOpen={isModalOpen} image={selectedImages} onClose={handleClose}/>}
